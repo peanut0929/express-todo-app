@@ -19,7 +19,8 @@ module.exports = {
 
         res.render('index.art', {
           todos,
-          formatTime: time => dayjs(time).format('HH:mm:ss')
+          formatTime: time => dayjs(time).format('HH:mm:ss'),
+          now: dayjs().format('YYYY-MM-DD HH:mm:ss'),
         });
       });
   },

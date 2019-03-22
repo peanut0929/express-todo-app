@@ -28,13 +28,13 @@ body {
 }
 
 .todo-list {
-  margin-top: 24px;
+  margin-top: 12px;
   border-top: 1px solid #ddd;
 }
 
 .todo-list-item {
   position: relative;
-  padding: 12px 40px 12px 0;
+  padding: 16px 40px 16px 0;
   border-bottom: 1px solid #eee;
 }
 
@@ -51,7 +51,8 @@ body {
 }
 
 .todo-info {
-  line-height: 24px;
+  margin-bottom: 0;
+  line-height: 20px;
   color: #888;
 }
 
@@ -59,4 +60,17 @@ body {
   font-size: 12px;
   display: inline-block;
   vertical-align: middle;
+}
+
+.list-group-item {
+  font-size: 12px;
+}
+
+.dropdown-item {
+  font-size: 12px;
+}
+
+.date-time {
+  font-size: 12px;
+  color: #999;
 }
