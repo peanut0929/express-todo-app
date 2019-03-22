@@ -35,7 +35,7 @@ module.exports = {
     const { name, password } = body;
 
     if (!name || !password) {
-      req.setFlash('请完整填写注册信息', '/user/login');
+      req.setFlash('请完整填写注册信息', '/user/register');
     } else {
       UserModel.findOne({ name }).exec((err, user) => {
         if (!err) {

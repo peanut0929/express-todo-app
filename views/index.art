@@ -27,7 +27,7 @@
           <h4 class="todo-title">{{$value.text}}</h4>
           <p class="todo-info">
             {{if $value.priority === 'none'}}
-            <span class="priority-dot bg-secondary"></span> <span>无优先级</span>
+            <span class="priority-dot bg-secondary"></span> <span>优先级 • 无</span>
             {{else if $value.priority === 'low'}}
             <span class="priority-dot bg-info"></span> <span class="text-info">优先级 • 低</span>
             {{else if $value.priority === 'medium'}}
@@ -35,14 +35,15 @@
             {{else}}
             <span class="priority-dot bg-danger"></span> <span class="text-danger">优先级 • 高</span>
             {{/if}}
-            <span class="ml-2">{{formatTime($value.createAt)}}</span>
+            <span class="ml-3"><i class="zmdi zmdi-time"></i> {{formatTime($value.createAt)}}</span>
           </p>
           <div class="btn menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="/images/dot.png" alt="">
+            <i class="zmdi zmdi-more"></i>
           </div>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" data-id="{{$value._id}}">编辑</a>
-            <a class="dropdown-item" href="{{'/delete-todo/' + $value._id}}">删除</a>
+            <a class="dropdown-item" href="#" data-id="{{$value._id}}"><i class="zmdi zmdi-edit"></i> 编辑</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger" href="{{'/delete-todo/' + $value._id}}"><i class="zmdi zmdi-close"></i> 删除</a>
           </div>
         </div>
         {{/each}}
@@ -54,10 +55,10 @@
     <div class="col-md-3">
       <div class="list-group">
         <a href="/" class="list-group-item list-group-item-action active">
-          今天
+          <i class="zmdi zmdi-hc-fw zmdi-calendar"></i> 今天
         </a>
-        <a href="#" class="list-group-item list-group-item-action">历史记录</a>
-        <a href="#" class="list-group-item list-group-item-action">垃圾桶</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="zmdi zmdi-hc-fw zmdi-time-restore-setting"></i> 历史记录</a>
+        <a href="#" class="list-group-item list-group-item-action"><i class="zmdi zmdi-hc-fw zmdi-delete"></i> 垃圾桶</a>
       </div>
     </div>
   </div>

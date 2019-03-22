@@ -6,9 +6,10 @@ const { getDate } = require('../utils/index');
 module.exports = {
   index: (req, res, next) => {
     const [year, month, day] = getDate();
+    const { user } = req.session;
 
     TodoModel.find({
-      creator: req.session.user._id,
+      creator: user._id,
       createAt: { $gte: new Date(year, month, day) }
     })
       .sort({
@@ -18,9 +19,10 @@ module.exports = {
         if (err) throw err;
 
         res.render('index.art', {
+          name: user.name,
           todos,
           formatTime: time => dayjs(time).format('HH:mm:ss'),
-          now: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+          now: dayjs().format('YYYY-MM-DD HH:mm:ss')
         });
       });
   },
