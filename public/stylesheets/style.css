@@ -1,0 +1,62 @@
+body {
+  min-width: 1280px;
+}
+.container {
+  width: 1140px !important;
+}
+.flex-1 {
+  flex: 1 !important;
+}
+
+.flex-2 {
+  flex: 2 !important;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.priority-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 8px;
+  background: #fff;
+  text-indent: -999px;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.todo-list {
+  margin-top: 24px;
+  border-top: 1px solid #ddd;
+}
+
+.todo-list-item {
+  position: relative;
+  padding: 12px 40px 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.todo-list-item .menu {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  cursor: pointer;
+}
+
+.todo-list-item .menu img {
+  width: 24px;
+  height: 24px;
+}
+
+.todo-info {
+  line-height: 24px;
+  color: #888;
+}
+
+.todo-info span {
+  font-size: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,0 +1,26 @@
+{
+  "name": "bootstrap-todo-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "bcrypt": "^3.0.5",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "dayjs": "^1.8.11",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-art-template": "^1.0.1",
+    "express-session": "^1.15.6",
+    "hbs": "~4.0.1",
+    "mongoose": "^5.4.19",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
