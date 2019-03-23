@@ -26,6 +26,44 @@ module.exports = {
         });
       });
   },
+  history: (req, res, next) => {
+    const [year, month, day] = getDate();
+    const { user } = req.session;
+
+    TodoModel.find({
+      creator: user._id,
+      createAt: { $lt: new Date(year, month, day) }
+    })
+      .sort({
+        createAt: -1
+      })
+      .exec((err, docs) => {
+        if (err) throw err;
+
+        const todos = {};
+
+        docs.forEach(todo => {
+          todo = todo.toObject();
+          let { createAt } = todo;
+
+          createAt = dayjs(createAt).format('YYYY-MM-DD');
+
+          if (!todos[createAt]) {
+            todos[createAt] = [todo];
+          } else {
+            todos[createAt] = [...todos[createAt], todo];
+          }
+        });
+
+        const keys = Object.keys(todos);
+
+        res.render('history.art', {
+          name: user.name,
+          todos: keys.length > 0 ? todos : null,
+          formatTime: time => dayjs(time).format('HH:mm:ss')
+        });
+      });
+  },
   addTodo: (req, res, next) => {
     const { body, session } = req;
     const { user } = session;
@@ -42,15 +80,39 @@ module.exports = {
       .catch(err => console.log(err));
   },
   deleteTodo: (req, res, next) => {
-    const { params } = req;
-
-    const { id } = params;
     TodoModel.findByIdAndDelete({
-      _id: id
+      _id: req.params.id
     }).exec((err, doc) => {
       if (err) throw err;
 
       res.redirect('/');
+    });
+  },
+  toggleTodo: (req, res, next) => {
+    const id = req.params.id;
+
+    TodoModel.findOne({ _id: id }).exec((err, doc) => {
+      doc.completed = !doc.completed;
+
+      doc.save().then(doc => {
+        console.log(doc);
+
+        res.redirect('/');
+      });
+    });
+  },
+  updateTodo: (req, res, next) => {
+    const id = req.params.id;
+    const text = req.query.text;
+
+    TodoModel.findOne({
+      _id: id
+    }).exec((err, doc) => {
+      doc.text = text;
+
+      doc.save().then(doc => {
+        res.redirect('/');
+      });
     });
   }
 };

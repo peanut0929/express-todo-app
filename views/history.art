@@ -1,0 +1,55 @@
+{{extend './layouts/main.art'}}
+
+{{block 'content'}}
+{{include './includes/header.art'}}
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-md-9">
+      {{if todos}}
+      {{each todos value key}}
+      <h5 class="mb-2 text-muted">{{key}} </h5>
+      <div class="todo-list mb-4">
+        {{each value}}
+        <div class="todo-list-item">
+          <h4 class="todo-title">
+            <span>{{$value.text}}</span>
+          </h4>
+          <p class="todo-info">
+            {{if $value.priority === 'none'}}
+            <span class="priority-dot bg-secondary"></span> <span>优先级 • 无</span>
+            {{else if $value.priority === 'low'}}
+            <span class="priority-dot bg-info"></span> <span class="text-info">优先级 • 低</span>
+            {{else if $value.priority === 'medium'}}
+            <span class="priority-dot bg-warning"></span> <span class="text-warning">优先级 • 中</span>
+            {{else}}
+            <span class="priority-dot bg-danger"></span> <span class="text-danger">优先级 • 高</span>
+            {{/if}}
+            <span class="ml-3"><i class="zmdi zmdi-time"></i> {{formatTime($value.createAt)}}</span>
+          </p>
+        </div>
+        {{/each}}
+      </div>
+      {{/each}}
+      {{else}}
+      <p class="text-muted text-center mt-4 p-4">暂无历史记录</p>
+      {{/if}}
+    </div>
+    <div class="col-md-3">
+      <div class="list-group">
+        <a href="/" class="list-group-item list-group-item-action">
+          <i class="zmdi zmdi-hc-fw zmdi-calendar"></i> 今天
+        </a>
+        <a href="/history" class="list-group-item list-group-item-action active">
+          <i class="zmdi zmdi-hc-fw zmdi-time-restore-setting"></i>
+          历史记录
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">
+          <i class="zmdi zmdi-hc-fw zmdi-delete"></i>
+          垃圾桶
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{/block}}

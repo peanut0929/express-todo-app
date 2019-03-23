@@ -1,6 +1,9 @@
 body {
   min-width: 1280px;
 }
+.zmdi {
+  vertical-align: middle;
+}
 .container {
   width: 1140px !important;
 }
@@ -36,6 +39,21 @@ body {
   position: relative;
   padding: 16px 40px 16px 0;
   border-bottom: 1px solid #eee;
+}
+
+.todo-list-item .todo-title {
+  line-height: 1.5;
+}
+
+.todo-list-item .todo-title .zmdi {
+  margin-top: -3px;
+  font-size: 20px;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.todo-list-item .todo-title span {
+  outline: none;
 }
 
 .todo-list-item .menu {

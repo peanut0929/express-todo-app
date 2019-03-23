@@ -11,10 +11,10 @@
         </div>
         <div class="form-group flex-1 mr-2">
           <select class="form-control full-width" name="priority">
-            <option class="text-secondary" value="none">无优先级</option>
-            <option class="text-info" value="low">低优先级</option>
-            <option class="text-warning" value="medium">中优先级</option>
             <option class="text-danger" value="high">高优先级</option>
+            <option class="text-warning" value="medium">中优先级</option>
+            <option class="text-info" value="low">低优先级</option>
+            <option class="text-secondary" value="none">无优先级</option>
           </select>
         </div>
         <button type="submit" class="btn btn-success">添加任务</button>
@@ -24,7 +24,10 @@
       <div class="todo-list">
         {{each todos}}
         <div class="todo-list-item">
-          <h4 class="todo-title">{{$value.text}}</h4>
+          <h4 class="todo-title">
+            <a href="{{'/toggle-todo/' + $value._id}}"><i class="zmdi {{if $value.completed}}zmdi-circle-o{{else}}zmdi-check-circle{{/if}}" data-priority="{{$value.priority}}"></i></a>
+            <span contenteditable="true" data-text="{{$value.text}}" data-id="{{$value._id + ''}}">{{$value.text}}</span>
+          </h4>
           <p class="todo-info">
             {{if $value.priority === 'none'}}
             <span class="priority-dot bg-secondary"></span> <span>优先级 • 无</span>
@@ -57,7 +60,7 @@
         <a href="/" class="list-group-item list-group-item-action active">
           <i class="zmdi zmdi-hc-fw zmdi-calendar"></i> 今天
         </a>
-        <a href="#" class="list-group-item list-group-item-action"><i class="zmdi zmdi-hc-fw zmdi-time-restore-setting"></i> 历史记录</a>
+        <a href="/history" class="list-group-item list-group-item-action"><i class="zmdi zmdi-hc-fw zmdi-time-restore-setting"></i> 历史记录</a>
         <a href="#" class="list-group-item list-group-item-action"><i class="zmdi zmdi-hc-fw zmdi-delete"></i> 垃圾桶</a>
       </div>
     </div>
@@ -72,7 +75,22 @@
     var $form = $('#J_todoForm');
     var $textInput = $('#J_textInput');
     var $dateTime = $('#J_dateTime');
+    var $titleChk = $('.todo-title').find('.zmdi');
     var timer;
+    var $editSpan = $('.todo-title').find('span');
+
+    $editSpan.on('blur', function() {
+      var $this = $(this);
+      var newText = $this.text();
+      var originText = $this.data('text');
+      var id = $this.data('id')
+
+      if(newText !== originText) {
+        window.location.href = '/update-todo/' + id + '?text=' + newText
+      }
+    })
+
+
 
     function getNowTime() {
       var now = dayjs().format('YYYY-MM-DD HH:mm:ss')
@@ -80,10 +98,6 @@
     }
 
     timer = setInterval(getNowTime, 1000)
-
-
-
-
 
     $form.on('submit', function(e) {
       if(!$textInput.val().trim()) {
@@ -95,6 +109,40 @@
 
       return false;
     })
+
+
+    $titleChk.each(function() {
+      var $this = $(this);
+      var priority = $this.data('priority');
+
+      switch(priority) {
+        case 'low':
+          $this.addClass('text-info');
+          break;
+        case 'medium':
+          $this.addClass('text-warning');
+          break;
+        case 'high':
+          $this.addClass('text-danger');
+          break;
+        default:
+          $this.addClass('text-secondary');
+      }
+    })
+
+
+    // $titleChk.click(function() {
+    //   var $this = $(this);
+    //   var checkedCls = 'zmdi-check-circle'
+    //   var uncheckedCls = 'zmdi-circle-o'
+    // 
+    //   if($this.hasClass('zmdi-circle-o')) {
+    //     $this.removeClass(uncheckedCls).addClass(checkedCls)
+    //   } else {
+    //     $this.removeClass(checkedCls).addClass(uncheckedCls)
+    //   }
+    // 
+    // })
   })
 </script>
 {{/block}}
